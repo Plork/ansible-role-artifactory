@@ -1,4 +1,9 @@
 ---
   dependencies:
-    - { role: java, java_major_version: "8", java_version: "8u60*", java_flavor: "oracle", java_oracle_accept_license_agreement: True }
-    - { role: unzip}
+  - src: https://github.com/Plork/ansible-role-unzip
+    version: master
+    name: unzip
+
+  - src: https://github.com/Plork/ansible-role-java
+    version: master
+    name: java
