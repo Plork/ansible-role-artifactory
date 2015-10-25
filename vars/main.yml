@@ -4,6 +4,6 @@ artifactory_file: "artifactory-{{artifactory_version}}.zip"
 artifactory_home: "/opt/jfrog/artifactory-pro-{{artifactory_version}}"
 
 java_major_version: "8"
-java_version: "8u60*"
+java_version: "8u6*"
 java_flavor: "oracle"
 java_oracle_accept_license_agreement: True
