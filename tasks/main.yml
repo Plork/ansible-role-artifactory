@@ -42,12 +42,17 @@
 - name: 'create user to run artifactory'
   user: name={{artifactory_username}}
 
+- name: 'verify presence of config dir artifactory'
+  stat: path="/etc/opt/jfrog/artifactory"
+  register: configdir
+
 - name: 'create config dir for artifactory'
   file: >
     dest=/etc/opt/jfrog/artifactory
     state=directory
     owner=root
     mode=0755
+  when: not configdir.stat.exists
 
 - name: 'create configuration file'
   template: >
@@ -57,7 +62,13 @@
     group=root
     mode=0644
 
+- name: Check if Service Exists
+  stat: path=/etc/init.d/artifactory
+  register: artifactory_service
+
 - name: 'install artifactory as a service'
   command: "{{artifactory_home}}/bin/installService.sh {{artifactory_username}}"
   notify:
     - 'restart artifactory'
+  when: not artifactory_service.stat.exists
+  ignore_errors: yes
